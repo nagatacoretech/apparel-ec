@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('parent_categories', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->boolean("gender");
+            $table->unsignedTinyInteger("gender");
             $table->timestamps();
         });
     }
