@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@test.com',
         // ]);
         $this->call([
-            ProductsSeeder::class,
+            // ProductsSeeder::class,
+            // ColorsSeeder::class,
+            // SizesSeeder::class,
         ]);
     }
 }
