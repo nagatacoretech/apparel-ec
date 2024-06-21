@@ -25,5 +25,11 @@ class DatabaseSeeder extends Seeder
             // ColorsSeeder::class,
             // SizesSeeder::class,
         ]);
+        $this->call([
+            // OrdersSeeder::class,
+            // Order_ItemsSeeder::class,
+            // Parent_CategoriesSeeder::class,
+            // Child_CategoriesSeeder::class,
+        ]);
     }
 }
