@@ -8,7 +8,7 @@
     <h1>Product Detail</h1>
     <p><strong>商品名:</strong> {{ $product->name }}</p>
     <p><strong>価格:</strong> {{ $product->price }}</p>
-    <p><img src="{{ url($product->img_path) }}" alt="{{ $product->name }}" /></p>
+    <p><img src="/storage/{{ url($product->img_path) }}" alt="{{ $product->name }}" /></p>
     <p><strong>在庫数:</strong> {{ $product->stock }}</p>
     <p>@if($product->ProductDetail->size)
         <strong>サイズ:</strong> {{ $product->ProductDetail->size->size }} <br>

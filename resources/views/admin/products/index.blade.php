@@ -9,7 +9,7 @@
             @foreach($products as $product)
                 @if($product->visibility)
                     <li><a href="/admin/products/show/{{$product->id}}">
-                        <img src="{{ url($product->img_path) }}" alt="Product Image" style="max-width: 200px; max-height: 200px;">
+                        <img src="{{ url('storage/' . $product->img_path) }}" alt="Product Image">
                         <strong>商品名:</strong> {{ $product->name }} <br>
                         <strong>価格:</strong> {{ $product->price }} <br>
                         <strong>在庫数:</strong> {{ $product->stock }} <br>
