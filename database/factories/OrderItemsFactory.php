@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\OrderItems;
+use App\Models\Orders;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,10 +17,16 @@ class OrderItemsFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = OrderItems::class;
     public function definition(): array
     {
         return [
-            //
+            'order_id' => $this->faker->numberBetween(1, 100),
+            'product_id' => $this->faker->numberBetween(1, 100),
+            'price' => $this->faker->numberBetween(1000, 10000),
+            'amount' => $this->faker->numberBetween(1, 5),
+            'created_at' => $this->faker->dateTimeBetween('-10 years', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-10 years', 'now'),
         ];
     }
 }

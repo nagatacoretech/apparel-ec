@@ -24,8 +24,8 @@ class ProductDetail extends Model
         return $this->belongsTo(Color::class);
     }
 
-//     public function carts()
-//     {
-//         return $this->hasMany(Cart::class);
-//     }
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

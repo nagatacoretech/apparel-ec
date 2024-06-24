@@ -5,7 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order_Items extends Model
+class Cart extends Model
 {
     use HasFactory;
+
+public function product_detail()
+{
+    return $this->belongsTo(ProductDetail::class);
+}
 }
