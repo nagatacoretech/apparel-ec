@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProductDetail;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             // ProductsSeeder::class,
             // ColorsSeeder::class,
             // SizesSeeder::class,
+            ProductDetailSeeder::class
         ]);
     }
 }
