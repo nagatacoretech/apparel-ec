@@ -11,7 +11,7 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
-    public function details()
+    public function ProductDetail()
     {
         return $this->hasOne(ProductDetail::class);
     }

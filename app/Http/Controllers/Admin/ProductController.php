@@ -17,8 +17,8 @@ class ProductController extends Controller
     public function index()
     {
         // $products = Product::all();
-        $details = ProductDetail::all();
-        $products = Product::with(['details.size', 'details.color'])->get();
+        $ProductDetail = ProductDetail::all();
+        $products = Product::with(['ProductDetail.size', 'ProductDetail.color'])->get();
         return view('admin.products.index', compact('products'));//
     }
 
@@ -75,7 +75,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::with(['ProductDetail.size', 'ProductDetail.color'])->findOrFail($id);
+        return view('admin.products.show', compact('product'));
     }
 
     /**

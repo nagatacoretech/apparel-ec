@@ -8,18 +8,19 @@
         <ul>
             @foreach($products as $product)
                 @if($product->visibility)
-                    <li>
+                    <li><a href="/admin/products/show/{{$product->id}}">
+                        <img src="{{ url($product->img_path) }}" alt="Product Image" style="max-width: 200px; max-height: 200px;">
                         <strong>商品名:</strong> {{ $product->name }} <br>
                         <strong>価格:</strong> {{ $product->price }} <br>
                         <strong>在庫数:</strong> {{ $product->stock }} <br>
-                        @if($product->details)
-                            @if($product->details->size)
-                                <strong>サイズ:</strong> {{ $product->details->size->size }} <br>
+                        @if($product->ProductDetail)
+                            @if($product->ProductDetail->size)
+                                <strong>サイズ:</strong> {{ $product->ProductDetail->size->size }} <br>
                             @else
                                 <em>サイズ未登録</em> <br>
                             @endif
-                            @if($product->details->color)
-                                <strong>カラー:</strong> {{ $product->details->color->color }} <br>
+                            @if($product->ProductDetail->color)
+                                <strong>カラー:</strong> {{ $product->ProductDetail->color->color }} <br>
                             @else
                                 <em>カラー未登録</em> <br>
                             @endif
@@ -27,6 +28,7 @@
                             <em>商品詳細登録してません。</em>
                         @endif
                     </li>
+                </a>
                 @endif
             @endforeach
         </ul>
