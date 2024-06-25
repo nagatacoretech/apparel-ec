@@ -29,7 +29,13 @@ class CartController extends Controller
     public function add_index()
     {
         $carts = Cart::where('user_id',Auth::id())->with('product_detail.product')->get();
-        return view('carts.index',compact('carts'));
+        $total_price = 0;
+        foreach($carts as $cart)
+        {
+            $total_price += $cart->product_detail->product->price*$cart->amount;
+        }
+
+        return view('carts.index',compact('carts','total_price'));
     }
 
     public function increase($id)

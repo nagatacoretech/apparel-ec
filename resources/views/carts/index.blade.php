@@ -29,8 +29,11 @@
                     @empty
                     <p>商品はカート内にありません</p>
                     @endforelse
+        </div>
 
-            <a href="/">商品一覧画面へ</a>
+        <div class="my-9">
+        <p>合計金額：{{$total_price}}</p>
+        <a href="/">商品一覧画面へ</a>
         </div>
     </div>
 </x-app-layout>
