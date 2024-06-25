@@ -19,9 +19,10 @@ class ProductDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            'product_id' => fake()->numberBetween(1,50),
+            'product_id' => fake()->numberBetween(1,10),
             'size_id' => fake()->numberBetween(1,10),
             'color_id' => fake()->numberBetween(1,30),
+            'stock' => fake()->numberBetween(1, 10),
         ];
     }
 }

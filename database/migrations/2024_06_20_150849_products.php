@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer("price");
             $table->boolean("visibility");
             $table->string("img_path");
-            $table->integer("stock");
             $table->timestamps();
         });
     }
