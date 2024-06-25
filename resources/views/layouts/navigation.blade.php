@@ -13,12 +13,50 @@
                 <button id="searchIcon" class="w-16">
                     <img src="{{ asset('/css/img/search-icon.png')}}">
                 </button>
+
             <div id="searchBox" class="hidden absolute w-[1215px] h-[964px] top-[63px] bg-white p-7">
+            <form action="{{ route('search') }}" method="GET">
                 {{-- キーワード検索（商品名検索）はなるべく下で検索をかけられるようにする --}}
                 {{-- カテゴリーから商品をたどれるようにする --}}
-                    <input type="text" name="query" placeholder="検索..." required>
-                    <button type="submit">検索</button>
+                    <input type="text" name="query" placeholder="検索...">
+
+                    {{-- ここにカテゴリー検索追加 --}}
+                    <div class="list1">
+                        <div class="list1-title">woman</div>
+                        <select name="woman_category">
+                            <option value="" checked>選択してください</option>
+                            @foreach ($parent_categories as $parent_category)
+                                @if ($parent_category->gender == 0 || $parent_category->gender == 2)
+                                    <option value="{{ $parent_category->name }}" disabled>{{ $parent_category->name }}</option>
+                                    @foreach ($child_categories as $child_category)
+                                        @if ($parent_category->id == $child_category->category_id && $child_category->gender == 2)
+                                            <option value="{{$child_category->name}}">{{$child_category->name}}</option>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="list1">
+                        <div style="">man</div>
+                        <select name="man_category">
+                            <option value="" checked>選択してください</option>
+                            @foreach ($parent_categories as $parent_category)
+                                @if ($parent_category->gender == 0 || $parent_category->gender == 1)
+                                    <option value="{{ $parent_category->name }}" disabled>{{ $parent_category->name }}</option>
+                                    @foreach ($child_categories as $child_category)
+                                        @if ($parent_category->id == $child_category->category_id && $child_category->gender == 1)
+                                            <option value="{{$child_category->name}}">{{$child_category->name}}</option>
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        </select>
+                        <button type="submit">検索</button>
+                    </div>
+                </form>
             </div>
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">

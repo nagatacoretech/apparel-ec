@@ -27,7 +27,6 @@ class ProductFactory extends Factory
             'price' => fake()->numberBetween(0,30000),
             'visibility' => fake()->boolean(),
             'img_path' => 'https://picsum.photos/200/300',
-            'stock' => fake()->numberBetween(1, 100),
         ];
     }
 }
