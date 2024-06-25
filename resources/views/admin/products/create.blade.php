@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Product</title>
-    <!-- Include Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+<x-app-layout>
 <div class="container mt-5">
-    <h1>Create New Product</h1>
+    <h1>商品登録</h1>
     <!-- Display validation errors -->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -20,7 +13,7 @@
     @endif
 
     <!-- Product creation form -->
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -74,9 +67,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create Product</button>
+        <button type="submit" class="btn btn-primary">商品登録</button>
     </form>
 </div>
-
-</body>
-</html>
+</x-app-layout>

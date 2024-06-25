@@ -1,17 +1,17 @@
-<html>
-<head>
-    <title>Products</title>
-</head>
-<body>
-    <h1>Products List</h1>
+<x-app-layout>
+    <h1>商品一覧</h1>
     @if($products->count())
         <ul>
             @foreach($products as $product)
-                @if($product->visibility)
                     <li><a href="/admin/products/show/{{$product->id}}">
-                        <img src="{{ url('storage/' . $product->img_path) }}" alt="Product Image">
+                        <p><img src="{{ url('storage/' . $product->img_path) }}" alt="Product Image"></p>
                         <strong>商品名:</strong> {{ $product->name }} <br>
                         <strong>価格:</strong> {{ $product->price }} <br>
+                        @if ($product->visibility === 1)
+                        <strong>表示:</strong> Yes <br>
+                        @else
+                        <strong>表示:</strong> No <br>
+                        @endif
                         <strong>在庫数:</strong> {{ $product->stock }} <br>
                         @if($product->ProductDetail)
                             @if($product->ProductDetail->size)
@@ -29,12 +29,10 @@
                         @endif
                     </li>
                 </a>
-                @endif
             @endforeach
         </ul>
     @else
         <p>商品登録してません。</p>
     @endif
     <a href="/admin/products/create">商品登録</a>
-</body>
-</html>
+</x-app-layout>

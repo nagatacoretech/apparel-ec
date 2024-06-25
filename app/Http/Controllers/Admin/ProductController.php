@@ -76,7 +76,10 @@ class ProductController extends Controller
     public function show(string $id)
     {
         $product = Product::with(['ProductDetail.size', 'ProductDetail.color'])->findOrFail($id);
-        return view('admin.products.show', compact('product'));
+        $sizes = Size::all();
+        $colors = Color::all();
+
+        return view('admin.products.show', compact('product', 'sizes', 'colors'));
     }
 
     /**
@@ -84,7 +87,11 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+        $sizes = Size::all();
+        $colors = Color::all();
+
+        return view('admin.products.edit', compact('product', 'sizes', 'colors'));//
     }
 
     /**
@@ -92,7 +99,43 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|integer',
+            'stock' => 'required|integer',
+            'visibility' => 'required|boolean',
+            'img_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'size_id' => 'required|exists:sizes,id',
+            'color_id' => 'required|exists:color,id',
+        ]);
+
+        $product = Product::findOrFail($id);
+        if ($request->hasFile('img_path')) {
+            // Store the new image
+            $img_path = $request->file('img_path')->store('images', 'public');
+        } else {
+            $img_path = $product->img_path;
+        }
+
+
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'visibility' => $request->visibility,
+            'img_path' => $img_path,
+        ]);
+
+        $productDetail = $product->productDetail()->firstOrCreate([
+            'product_id' => $product->id
+        ]);
+
+        $productDetail->update([
+            'size_id' => $request->size_id,
+            'color_id' => $request->color_id,
+        ]);
+
+        return redirect('admin/');//
     }
 
     /**
@@ -100,6 +143,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product_to_del = Product::find($id);
+        $product_to_del->delete();
+        return redirect('admin/');//
     }
 }
