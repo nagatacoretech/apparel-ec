@@ -17,12 +17,9 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get("/",[SalesChartController::class,"index"])->name("dashboard");
+    Route::get("/dashboard",[SalesChartController::class,"index"])->name("dashboard");
     Route::get("/stockout",[SalesChartController::class,"stockout"])->name("stockout");
-});
-
-Route::middleware('auth:admin')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('/index', [ProductController::class, 'index'])->name('index');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/admin', [ProductController::class, 'store'])->name('products.store');
