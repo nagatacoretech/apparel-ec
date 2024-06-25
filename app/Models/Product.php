@@ -8,8 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
     public function ProductDetail()
     {
-        return $this->hasOne(ProductDetail::class);
+        return $this->hasMany(ProductDetail::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
     }
 }

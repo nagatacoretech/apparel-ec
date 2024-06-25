@@ -51,7 +51,7 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
-            
+
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         platform: linux/x86_64
@@ -65,7 +65,7 @@ services:
             PMA_HOST: mysql
         networks:
             - sail
-            
+
     redis:
         image: 'redis:alpine'
         ports:
