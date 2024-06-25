@@ -27,6 +27,8 @@ Route::middleware('auth:users')->group(function () {
     Route::get('/carts/index',[CartController::class,'add_index'])->name('cart.index');
     Route::post('/cart/store',[CartController::class,'add_cart'])->name('add_cart');
     Route::post('/cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');
+    Route::post('/cart/increase/{id}',[CartController::class,'increase'])->name('increase');
+    Route::post('/cart/decrease/{id}',[CartController::class,'decrease'])->name('decrease');
 });
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
