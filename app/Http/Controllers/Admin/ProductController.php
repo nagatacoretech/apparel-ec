@@ -19,7 +19,6 @@ class ProductController extends Controller
         // $products = Product::all();
         $ProductDetail = ProductDetail::all();
         $products = Product::with(['ProductDetail.size', 'ProductDetail.color'])->get();
-        dd($products);
         return view('admin.products.index', compact('products'));//
     }
 
@@ -145,7 +144,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product_to_del = Product::find($id);
-        $product_to_del->delete();
+        $product_to_del->delete($product_to_del);
         return redirect('admin/');//
     }
 }
