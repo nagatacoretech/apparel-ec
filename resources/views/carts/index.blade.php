@@ -1,43 +1,37 @@
 <x-app-layout>
-    {{-- @foreach($products->product as $product)
-{{$product}}
-    @endforeach --}}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap justify-between ">
-            <table class="min-w-full bg-gray-100 border-gray-200 shadow-md rounded-lg overflow-hidden">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">商品名</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">価格</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">画像</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">数量</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">合計</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    @if(!empty($carts->count()))
-                        @foreach($carts as $cart_products)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">{{$cart_products->product->name}}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{$cart_products->product->price}}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{$cart_products->product->img_path}}</td>
-                            <td>{{$cart_detail->amount}}</td>
-                            <td>{{$cart_products->product->price*$cart_detail->amount}}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <form action="{{ route('cart.remove', $cart_products->product->id) }}" method="POST">
+                    @forelse($carts as $cart_products)
+                        {{$cart_products->product_detail->product->name}}<br>
+                        {{$cart_products->product_detail->product->price}}<br>
+                        {{$cart_products->product_detail->product->img_path}}<br>
+                        {{$cart_products->amount}}<br>
+                        {{$cart_products->product_detail->product->price*$cart_products->amount}}<br>
+                        <form action="{{ route('cart.remove', $cart_products->product_detail_id) }}" method="POST"><br>
+                            @csrf
+                            <button type="submit">削除</button>
+                        </form>
+                        @if(!empty($cart_products->product_detail->id))
+                        <form method="POST" action="{{route('increase',$cart_products->product_detail->id)}}">
                                 @csrf
-                                <button type="submit">削除</button>
-                                </form>
-                            </td>
-                        <tr>
-                        @endforeach
-
-                    @else
-                        <p>カート内に商品はありません</p>
+                                <button type="submit">
+                                    ➕
+                                </button>
+                        </form>
+                        {{$cart_products->amount}}<br>
+                        @if($cart_products->amount != 1)
+                            <form method="POST" action="{{route('decrease',$cart_products->product_detail->id)}}">
+                                @csrf
+                                <button id="decrementButton" class="">➖</button>
+                            </form>
+                        @endif
                     @endif
-                </tbody>
-            </table>
+                    @empty
+                    <p>商品はカート内にありません</p>
+                    @endforelse
 
+            <a href="/">商品一覧画面へ</a>
         </div>
     </div>
 </x-app-layout>
+

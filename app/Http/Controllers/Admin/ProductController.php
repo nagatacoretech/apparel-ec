@@ -19,6 +19,7 @@ class ProductController extends Controller
         // $products = Product::all();
         $ProductDetail = ProductDetail::all();
         $products = Product::with(['ProductDetail.size', 'ProductDetail.color'])->get();
+        dd($products);
         return view('admin.products.index', compact('products'));//
     }
 
