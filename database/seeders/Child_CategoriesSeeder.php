@@ -339,24 +339,44 @@ class Child_CategoriesSeeder extends Seeder
                 'gender' => "1",
             ],
             [
-                'category_id' =>"6",
+                'category_id' =>"7",
                 'name' => "ルームウェア・パジャマ",
                 'gender' => "1",
             ],
             [
-                'category_id' =>"6",
+                'category_id' =>"7",
                 'name' => "ルームパンツ",
                 'gender' => "1",
             ],
             [
-                'category_id' =>"6",
+                'category_id' =>"7",
                 'name' => "ルームシューズ",
                 'gender' => "1",
             ],
             [
-                'category_id' =>"6",
+                'category_id' =>"7",
                 'name' => "すべてのルーム・ホーム",
                 'gender' => "1",
+            ],
+            [
+                'category_id' =>"7",
+                'name' => "ルームウェア・パジャマ",
+                'gender' => "2",
+            ],
+            [
+                'category_id' =>"7",
+                'name' => "ルームパンツ",
+                'gender' => "2",
+            ],
+            [
+                'category_id' =>"7",
+                'name' => "ルームシューズ",
+                'gender' => "2",
+            ],
+            [
+                'category_id' =>"7",
+                'name' => "すべてのルーム・ホーム",
+                'gender' => "2",
             ],
 
         ]);

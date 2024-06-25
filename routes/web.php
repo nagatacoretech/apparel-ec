@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/',[ItemController::class,'index'])->name('item.index');
 Route::get('/show/{id}',[ItemController::class,'show'])->name('show');
+Route::get('/search',[SearchController::class,'search'])->name('search');
 
 Route::middleware('auth:users')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
