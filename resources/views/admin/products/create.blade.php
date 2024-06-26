@@ -44,10 +44,10 @@
             <input type="file" class="form-control" id="img_path" name="img_path">
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="stock">在庫 (Stock)</label>
             <input type="number" class="form-control" id="stock" name="stock" value="{{ old('stock') }}" required>
-        </div>
+        </div> --}}
 
         <div class="form-group">
             <label for="size_id">サイズ (Size)</label>

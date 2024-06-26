@@ -22,16 +22,16 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@test.com',
         // ]);
         $this->call([
-            // ProductsSeeder::class,
-            // ColorsSeeder::class,
-            // SizesSeeder::class,
+            ProductsSeeder::class,
+            ColorsSeeder::class,
+            SizesSeeder::class,
             ProductDetailSeeder::class
         ]);
         $this->call([
-            // OrdersSeeder::class,
-            // Order_ItemsSeeder::class,
-            // Parent_CategoriesSeeder::class,
-            // Child_CategoriesSeeder::class,
+            OrdersSeeder::class,
+            Order_ItemsSeeder::class,
+            Parent_CategoriesSeeder::class,
+            Child_CategoriesSeeder::class,
         ]);
     }
 }

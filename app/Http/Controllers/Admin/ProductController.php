@@ -57,16 +57,17 @@ class ProductController extends Controller
             'price' => $request->price,
             'visibility' => $request->visibility,
             'img_path' => $img_path,
-            'stock' => $request->stock,
+
         ]);
 
         ProductDetail::create([
             'product_id' => $product->id,
             'size_id' => $request->size_id,
             'color_id' => $request->color_id,
+            // 'stock' => $request->stock,
         ]);
 
-        return redirect('admin/');
+        return redirect('admin/products');
         //
     }
 
@@ -135,7 +136,7 @@ class ProductController extends Controller
             'color_id' => $request->color_id,
         ]);
 
-        return redirect('admin/');//
+        return redirect('admin/products');//
     }
 
     /**
