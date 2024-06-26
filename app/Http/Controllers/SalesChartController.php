@@ -31,7 +31,14 @@ class SalesChartController extends Controller
         $total_members = DB::table('users')
             ->count();
 
-        return view('admin.sales_chart.index',compact("monthlySales","yearlySales","stockout","total_members"));
+        $yearly_members = DB::table('users')
+            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as year,count(*) as members')
+            ->groupByRaw('DATE_FORMAT(created_at, "%Y-%m")')
+            ->get();
+        $labels = $yearly_members->pluck('year')->toArray();
+        $data = $yearly_members->pluck('members')->toArray();
+
+        return view('admin.sales_chart.index',compact("monthlySales","yearlySales","stockout","total_members","labels","data"));
     }
 
     public function stockout(){
