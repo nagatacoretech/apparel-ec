@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\HistoryController;
-
+use App\Http\Controllers\PurchaseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,7 +32,8 @@ Route::middleware('auth:users')->group(function () {
     Route::post('/cart/decrease/{id}',[CartController::class,'decrease'])->name('decrease');
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
     Route::post('/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
-    // Route::get('/show/{id}',[ItemController::class,'show'])->name('item.show');
+    Route::get('/show/{id}',[ItemController::class,'show'])->name('item.show');
+    Route::post('purchase/checkout', [PurchaseController::class,'purchase'])->name('purchase');
 });
 
 require __DIR__.'/auth.php';
