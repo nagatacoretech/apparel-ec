@@ -12,9 +12,10 @@ class CartController extends Controller
 {
     public function add_cart(Request $request)
     {
-        $exist_product = Cart::where('product_detail_id',$request->product_id)->exists();
+        // dd($request);
+        $exist_product = Cart::where('user_id',Auth::id())->where('product_detail_id',$request->product_id)->exists();
         if($exist_product){
-            Cart::where('product_detail_id',$request->product_id)->increment('amount',$request->amount);
+            $cart = Cart::where('product_detail_id',$request->product_id)->increment('amount',$request->amount);
         }else{
         $cart = new Cart;
         $cart->user_id = Auth::id();
