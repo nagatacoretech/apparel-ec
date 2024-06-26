@@ -22,16 +22,18 @@ class PurchaseController extends Controller
             $order->save();
 
 
-
             foreach($request->order_items as  $item){
                 $order_item = new OrderItems;
-                $order_item->order_id = (int)$order->id;
-                $order_item->product_id = (int)$item['product_id'];
-                $order_item->price = (int)$item['price'];
-                $order_item->amount =(int)$item['amount'];
+                $order_item->order_id = $order->id;
+                $order_item->product_id = $item['product_id'];
+                $order_item->price = $item['price'];
+                $order_item->amount = $item['amount'];
                 $order_item->save();
             }
 
+            Cart::where('user_id',Auth::id())->delete();
+
+            // Cart::where('user_id',Auth;;)->
             DB::commit();
         } catch (\Exception $e) {
             $error = $e->getMessage();
