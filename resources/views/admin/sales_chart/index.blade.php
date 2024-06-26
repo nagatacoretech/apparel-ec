@@ -21,6 +21,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="yearly-tab" data-bs-toggle="tab" data-bs-target="#yearly" type="button" role="tab" aria-controls="yearly" aria-selected="false">年別売上</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="user-tab" data-bs-toggle="tab" data-bs-target="#user" type="button" role="tab" aria-controls="user" aria-selected="false">会員数推移</button>
+                        </li>
                     </ul>
                     {{-- タブにリンクされてるグラフの描写のやつ --}}
                     <div class="tab-content mt-3" id="myTabContent">
@@ -32,6 +35,11 @@
                         <div class="tab-pane fade" id="yearly" role="tabpanel" aria-labelledby="yearly-tab">
                             <div style="width:80%; margin:auto;">
                                 <canvas id="yearlySalesChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+                            <div style="width:80%; margin:auto;">
+                                <canvas id="userChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -59,6 +67,8 @@
     document.addEventListener('DOMContentLoaded', function () {
         const monthlySalesData = @json($monthlySales);
         const yearlySalesData = @json($yearlySales);
+        const labels = @json($labels);
+        const data = @json($data);
 
         initializeCharts();
 
@@ -76,6 +86,12 @@
             initializeCharts();
         });
 
+        document.getElementById('user-tab').addEventListener('click', function (event) {
+            event.preventDefault();
+            myTab.show(document.getElementById('user-tab'));
+            initializeCharts();
+        });
+
         function initializeCharts() {
             // 月のやつ
             const ctxMonthly = document.getElementById('monthlySalesChart').getContext('2d');
@@ -86,8 +102,8 @@
                     datasets: [{
                         label: 'Monthly Sales',
                         data: monthlySalesData.map(data => data.total_sales),
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -109,6 +125,29 @@
                     datasets: [{
                         label: 'Yearly Sales',
                         data: yearlySalesData.map(data => data.total_sales),
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            //ユーザー数推移
+            const ctxUsers = document.getElementById('userChart').getContext('2d');
+            const usersChart = new Chart(ctxUsers, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'User Growth',
+                        data: data,
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
