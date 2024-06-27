@@ -57,16 +57,18 @@ class ProductController extends Controller
             'price' => $request->price,
             'visibility' => $request->visibility,
             'img_path' => $img_path,
-            'stock' => $request->stock,
+
         ]);
 
         ProductDetail::create([
+
             'product_id' => $product->id,
             'size_id' => $request->size_id,
             'color_id' => $request->color_id,
+            'stock' => $request->stock,
         ]);
 
-        return redirect('admin/');
+        return redirect('admin/index');
         //
     }
 
@@ -135,7 +137,7 @@ class ProductController extends Controller
             'color_id' => $request->color_id,
         ]);
 
-        return redirect('admin/');//
+        return redirect('admin/index');//
     }
 
     /**
@@ -145,6 +147,6 @@ class ProductController extends Controller
     {
         $product_to_del = Product::find($id);
         $product_to_del->delete($product_to_del);
-        return redirect('admin/');//
+        return redirect('admin/index');//
     }
 }
