@@ -1,15 +1,18 @@
 <x-app-layout>
-    <div class="">
-        <div class="mx-auto" style="max-width:1200px">
-            <h1 class="text-center font-weight-bold" style="color:#555555;  font-size:1.2em; padding:24px 0px;">
-            {{ Auth::user()->name }}さんご購入ありがとうございました</h1>
+    <p>決済ページにリダイレクトします。<p>
+        <script src="https://js.stripe.com/v3/"></script>
 
-            <div class="card-body">
-                <p>ご登録頂いたメールアドレスへ決済情報をお送りしております。お手続き完了次第商品を発送致します。</p>
-                <a href="/">商品一覧へ</a>
-            </div>
+        <script>
+            const publicKey = '{{ $publicKey }}'
+            const stripe = Stripe(publicKey)
 
-            </div>
-        </div>
-    </div>
+            window.onload = () => {
+                stripe.redirectToCheckout({
+                    sessionId: '{{ $checkout_session->id }}'
+                }).then(result => {
+                    window.location.href = '{{ route('cancel') }}';
+                })
+            }
+
+        </script>
 </x-app-layout>

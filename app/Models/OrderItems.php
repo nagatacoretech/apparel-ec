@@ -17,7 +17,6 @@ class OrderItems extends Model
         'price',
         'amount',
     ];
-    protected $casts = [ 'product_id' => 'int', 'price' => 'int', 'amount' => 'int', ];
 
     protected static function booted()
     {
