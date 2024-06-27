@@ -61,7 +61,6 @@ class CartController extends Controller
         {
             $total_price += $cart->price*$cart->amount;
         }
-
         return view('carts.index',compact('carts','total_price'));
     }
 
