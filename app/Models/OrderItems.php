@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Database\Factories\OrderItemsFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,12 +16,26 @@ class OrderItems extends Model
         'price',
         'amount',
     ];
-    protected $casts = [ 'product_id' => 'int', 'price' => 'int', 'amount' => 'int', ];
 
     protected static function booted()
     {
         static::factory(function (OrderItemsFactory $factory) {
             return $factory->create();
         });
+    }
+
+    public function orders()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'id');
+    }
+
+    public function product_detail()
+    {
+        return $this->belongsTo(ProductDetail::class, 'product_id');
     }
 }

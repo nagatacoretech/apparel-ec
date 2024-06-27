@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\Order_Item;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Auth;
@@ -45,20 +47,18 @@ class CartController extends Controller
 
     public function add_index()
     {
-        // $carts = Cart::where('user_id',Auth::id())->with('product_detail.product')->get();
         $carts = DB::table('carts')
-            ->select('products.id','carts.product_detail_id','products.img_path', 'products.name', 'sizes.size', 'color.color', 'products.price', 'carts.amount')
+            ->select('products.id','carts.product_detail_id','products.img_path', 'products.name', 'sizes.size', 'color.color', 'products.price', 'carts.amount','product_details.stock')
             ->join('product_details', 'carts.product_detail_id', '=', 'product_details.id')
             ->join('products', 'product_details.product_id', '=', 'products.id')
             ->join('sizes', 'product_details.size_id', '=', 'sizes.id')
             ->join('color', 'product_details.color_id', '=', 'color.id')
             ->where('carts.user_id', Auth::id())
             ->get();
+        // dd($carts);
         $total_price = 0;
         foreach($carts as $cart)
         {
-            // dd($cart);
-            // dd($cart->product_detail->product->price);
             $total_price += $cart->price*$cart->amount;
         }
 
@@ -88,5 +88,42 @@ class CartController extends Controller
     {
         Cart::where('user_id', Auth::id())->where('product_detail_id', $id)->delete();
         return redirect()->route('cart.index');
+    }
+
+    public function purchase(Request $request)
+    {
+        $user = Auth::user();
+        $cartItems = Cart::where('user_id', $user->id)->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+        }
+
+        // Calculate total price
+        $totalPrice = 0;
+        foreach ($cartItems as $item) {
+            $totalPrice += $item->productDetail->price * $item->amount;
+        }
+
+        // Create order
+        $order = Order::create([
+            'user_id' => $user->id,
+            'total_price' => $totalPrice,
+        ]);
+
+        // Create order items
+        foreach ($cartItems as $item) {
+            Order_Item::create([
+                'order_id' => $order->id,
+                'product_id' => $item->productDetail->product_id,
+                'price' => $item->productDetail->price,
+                'amount' => $item->amount,
+            ]);
+        }
+
+        // Clear cart
+        Cart::where('user_id', $user->id)->delete();
+
+        return redirect()->route('history.index')->with('success', 'Purchase successful.');
     }
 }
