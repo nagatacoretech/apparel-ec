@@ -76,6 +76,7 @@ class PurchaseController extends Controller
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
+
         $publicKey = env('STRIPE_PUBLIC_KEY');
         foreach($request->stripe_items as  $s_items)
         {
