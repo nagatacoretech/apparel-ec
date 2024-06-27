@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Database\Factories\OrderItemsFactory;
+// s
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +23,20 @@ class OrderItems extends Model
         static::factory(function (OrderItemsFactory $factory) {
             return $factory->create();
         });
+    }
+
+    public function orders()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'id');
+    }
+
+    public function product_detail()
+    {
+        return $this->belongsTo(ProductDetail::class, 'product_id');
     }
 }

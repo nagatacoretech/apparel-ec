@@ -6,8 +6,8 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PurchaseController;
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +30,9 @@ Route::middleware('auth:users')->group(function () {
     Route::post('/cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');
     Route::post('/cart/increase/{id}',[CartController::class,'increase'])->name('increase');
     Route::post('/cart/decrease/{id}',[CartController::class,'decrease'])->name('decrease');
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::post('/purchase', [CartController::class, 'purchase'])->name('cart.purchase');
+    // Route::get('/show/{id}',[ItemController::class,'show'])->name('item.show');
     Route::post('purchase/checkout', [PurchaseController::class,'purchase'])->name('purchase');
     Route::get('purchase/checkout', [PurchaseController::class,'purchase'])->name('stockout');
     Route::get('/stripe/success', [PurchaseController::class, 'success'])->name('success');
