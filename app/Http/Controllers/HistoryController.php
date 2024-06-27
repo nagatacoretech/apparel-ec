@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\History;
 use Illuminate\Http\Request;
 use App\Models\Orders;
+use App\Models\OrderItems;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 class HistoryController extends Controller
@@ -15,7 +17,12 @@ class HistoryController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $orders = Orders::where('user_id', $user->id)->with('orderItems.product')->orderBy('created_at', 'desc')->get();
+        $orders = Orders::where('user_id', $user->id)
+            ->with('orderItems.product_detail.product')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        // $product = Product::where
+        // $orders = Orders::where('user_id', $user->id)->with('orderItems.product')->orderBy('created_at', 'desc')->get();
 
         return view('history.index', compact('orders'));//
     }
