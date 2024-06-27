@@ -21,10 +21,19 @@ class ProductFactory extends Factory
 
     public function definition(): array
     {
+        $name = ['エアリズムコットンオーバーサイズTシャツ',
+        'ドライカノコボーダーポロシャツ',
+        'ウィンドプルーフスタンドブルゾン',
+        'ブロックテックパーカ',
+        'ウルトラストレッチエアリズムワンピース',
+        'ギャザーパックオープンワンピース',
+        'サテンスカート',    'シフォンスカート',
+        '感動ジャケット', 'ブロックテックハーフコート','エアリズムコットンメッシュセット'];
+
         return [
-            'name' => fake()->name(),
-            'child_category_id' => fake()->numberBetween(1, 20),
-            'price' => fake()->numberBetween(0,30000),
+            'name' => fake()->randomElement($name),
+            'child_category_id' => fake()->numberBetween(1, 70),
+            'price' => fake()->numberBetween(5000,100000),
             'visibility' => fake()->boolean(),
             'img_path' => 'https://picsum.photos/200/300',
         ];
