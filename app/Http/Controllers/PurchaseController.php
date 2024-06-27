@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminMail;
+use App\Mail\CustomerMail;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\OrderItems;
@@ -9,6 +11,7 @@ use App\Models\Orders;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class PurchaseController extends Controller
 {
@@ -35,6 +38,22 @@ class PurchaseController extends Controller
 
             // Cart::where('user_id',Auth;;)->
             DB::commit();
+            // dd(OrderItems::
+            // where("order_items.order_id",$order->id)
+            // ->get());
+            // dd($order->id);
+            // $order_items = OrderItems::where("order_id",$order->id)->get();
+            $order_items = OrderItems::select('products.name', 'order_items.price', 'order_items.amount', 'sizes.size', 'color.color')
+                    ->join('product_details', 'order_items.product_id', '=', 'product_details.id')
+                    ->join('products', 'product_details.product_id', '=', 'products.id')
+                    ->join('sizes', 'product_details.size_id', '=', 'sizes.id')
+                    ->join('color', 'product_details.color_id', '=', 'color.id')
+                    ->where("order_items.order_id",$order->id)
+                    ->get();
+            // dd($order_items);
+            Mail::to(Auth::user()->email)->send(new CustomerMail($order_items));
+            Mail::to("admin@admin.com")->send(new AdminMail($order_items));
+
         } catch (\Exception $e) {
             $error = $e->getMessage();
 
