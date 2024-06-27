@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            画像：{{$product->img_path}}<br>
+        <img src="{{ url('storage/' . $product->img_path) }}" alt="Product Image">
             商品名：{{$product->name}}<br>
             価格：{{$product->price}}<br>
         <form action ="{{route('add_cart')}}" method="post">
