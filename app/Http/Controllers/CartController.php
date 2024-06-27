@@ -57,13 +57,9 @@ class CartController extends Controller
         $total_price = 0;
         foreach($carts as $cart)
         {
-<<<<<<< HEAD
             // dd($cart);
             // dd($cart->product_detail->product->price);
             $total_price += $cart->price*$cart->amount;
-=======
-            $total_price += $cart->product_detail->product->price*$cart->amount;
->>>>>>> parent of 0935e24 (一度)
         }
 
         return view('carts.index',compact('carts','total_price'));
