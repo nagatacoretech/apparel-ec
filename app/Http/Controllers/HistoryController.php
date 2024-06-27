@@ -21,10 +21,11 @@ class HistoryController extends Controller
             ->with('orderItems.product_detail.product')
             ->orderBy('created_at', 'desc')
             ->get();
+        $product = Product::all();
         // $product = Product::where
         // $orders = Orders::where('user_id', $user->id)->with('orderItems.product')->orderBy('created_at', 'desc')->get();
 
-        return view('history.index', compact('orders'));//
+        return view('history.index', compact('orders', 'product'));//
     }
 
     /**
