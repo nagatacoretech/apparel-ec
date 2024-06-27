@@ -9,6 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItems extends Model
 {
     use HasFactory;
+    protected $table = 'order_items';
+    // protected $guarded = ['id'];
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'price',
+        'amount',
+    ];
 
     protected static function booted()
     {
@@ -16,8 +24,6 @@ class OrderItems extends Model
             return $factory->create();
         });
     }
-
-    protected $fillable = ['order_id', 'product_id', 'price', 'amount'];
 
     public function orders()
     {
