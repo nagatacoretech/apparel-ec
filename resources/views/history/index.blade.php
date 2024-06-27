@@ -10,13 +10,15 @@
             <ul>
                 @foreach ($order->orderItems as $item)
                     <li>
-                        Product Name: {{ $item->product->name}}<br>
-                        {{-- @if ($item->productDetail && $item->product_detail->product) --}}
-                        {{-- Product Name: {{ $item->product_detail->product->name }} --}}
+                        {{-- Product Name: {{ $item->product->name}}<br> --}}
 
-                        {{-- @else
+                        @if ($item->product_detail && $item->product_detail->product)
+                        {{-- <img src="{{ url($item->product_detail->product->img_path) }}" alt="{{ $product->name }}" /> --}}
+                        Product Name: {{ $item->product_detail->product->name }}<br>
+
+                        @else
                         Product information not available.<br>
-                        @endif --}}
+                        @endif
                         Product ID: {{ $item->product_id }}<br>
                         Price: {{ $item->price }}<br>
                         Amount: {{ $item->amount }}<br>
