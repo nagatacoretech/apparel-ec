@@ -45,20 +45,18 @@ class CartController extends Controller
 
     public function add_index()
     {
-        // $carts = Cart::where('user_id',Auth::id())->with('product_detail.product')->get();
         $carts = DB::table('carts')
-            ->select('products.id','carts.product_detail_id','products.img_path', 'products.name', 'sizes.size', 'color.color', 'products.price', 'carts.amount')
+            ->select('products.id','carts.product_detail_id','products.img_path', 'products.name', 'sizes.size', 'color.color', 'products.price', 'carts.amount','product_details.stock')
             ->join('product_details', 'carts.product_detail_id', '=', 'product_details.id')
             ->join('products', 'product_details.product_id', '=', 'products.id')
             ->join('sizes', 'product_details.size_id', '=', 'sizes.id')
             ->join('color', 'product_details.color_id', '=', 'color.id')
             ->where('carts.user_id', Auth::id())
             ->get();
+        // dd($carts);
         $total_price = 0;
         foreach($carts as $cart)
         {
-            // dd($cart);
-            // dd($cart->product_detail->product->price);
             $total_price += $cart->price*$cart->amount;
         }
 

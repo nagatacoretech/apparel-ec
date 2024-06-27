@@ -31,6 +31,9 @@ Route::middleware('auth:users')->group(function () {
     Route::post('/cart/increase/{id}',[CartController::class,'increase'])->name('increase');
     Route::post('/cart/decrease/{id}',[CartController::class,'decrease'])->name('decrease');
     Route::post('purchase/checkout', [PurchaseController::class,'purchase'])->name('purchase');
+    Route::get('purchase/checkout', [PurchaseController::class,'purchase'])->name('stockout');
+    Route::get('/stripe/success', [PurchaseController::class, 'success'])->name('success');
+    Route::get('/stripe/cancel', [PurchaseController::class, 'cancel'])->name('cancel');
 
 
 

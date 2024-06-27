@@ -10,7 +10,10 @@ use App\Models\OrderItems;
 use App\Models\Orders;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+use App\Http\Controllers\Stripe\Stripe;
+use Stripe\Customer;
+use Laravel\Cashier\Cashier;
+
 use Illuminate\Support\Facades\Mail;
 
 class PurchaseController extends Controller
@@ -19,11 +22,18 @@ class PurchaseController extends Controller
     {
         DB::beginTransaction();
         try {
+            foreach($request->order_items as  $item){
+
+
+                if($item['stock'] == 0){
+                    throw new \Exception('申し訳ございません。在庫切れです。');
+                }
+            }
+
             $order = new Orders;
             $order->user_id = Auth::id();
             $order->total_price = $request->total_price;
             $order->save();
-
 
             foreach($request->order_items as  $item){
                 $order_item = new OrderItems;
@@ -36,7 +46,6 @@ class PurchaseController extends Controller
 
             Cart::where('user_id',Auth::id())->delete();
 
-            // Cart::where('user_id',Auth;;)->
             DB::commit();
             // dd(OrderItems::
             // where("order_items.order_id",$order->id)
@@ -54,22 +63,55 @@ class PurchaseController extends Controller
             Mail::to(Auth::user()->email)->send(new CustomerMail($order_items));
             Mail::to("admin@admin.com")->send(new AdminMail($order_items));
 
+
         } catch (\Exception $e) {
             $error = $e->getMessage();
 
             if(isset($error)){
                 DB::rollback();
-                dd($error);
-                // return view();
+                return view('carts.stockout');
             }
         }
-        return view('purchase.checkout');
+
+
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $publicKey = env('STRIPE_PUBLIC_KEY');
+        foreach($request->stripe_items as  $s_items)
+        {
+            $lineItems[] = [
+                    'price_data' => [
+                        'product_data' => [
+                            'name' => $s_items['name'],
+                            'images' => [$s_items['img']],
+                        ],
+                        'currency' => 'jpy',
+                        'unit_amount' => $s_items['price'],
+                    ],
+                    'quantity' =>  $s_items['amount']
+                ];
+        }
+
+        $checkout_session = \Stripe\Checkout\Session::create([
+            'line_items' => $lineItems,
+            'payment_method_types' => ['card'],
+            'mode' => 'payment',
+            'success_url' => route('success'),
+            'cancel_url' => route('cancel'),
+        ]);
+
+
+
+        return view('purchase.checkout',compact('checkout_session', 'publicKey'));
     }
 
-    public function checkout()
-    {
-
-        return view('purchase.checkout');
+    public function success(){
+        echo '決済成功';
     }
+
+    public function cancel(){
+        echo 'キャンセル';
+    }
+
 }
 
