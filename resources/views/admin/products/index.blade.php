@@ -12,10 +12,7 @@
                         <div class="product-details">
                             <strong>商品名:</strong> {{ $product->name }} <br>
                             <strong>価格:</strong> ¥{{ number_format($product->price) }} <br>
-                            @if($product->ProductDetail)
-                            @else
-                                <em>商品詳細登録してません。</em>
-                            @endif
+                            <strong>表示:</strong> {{ $product->visibility === 1 ? '表示' : '非表示' }} <br>
                         </div>
                     </a>
                 </div>

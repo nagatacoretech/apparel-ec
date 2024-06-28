@@ -57,11 +57,9 @@ class ProductController extends Controller
             'price' => $request->price,
             'visibility' => $request->visibility,
             'img_path' => $img_path,
-            'stock' => $request->stock,
         ]);
 
         ProductDetail::create([
-
             'product_id' => $product->id,
             'size_id' => $request->size_id,
             'color_id' => $request->color_id,
