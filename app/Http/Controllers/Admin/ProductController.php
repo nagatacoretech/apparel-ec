@@ -60,7 +60,6 @@ class ProductController extends Controller
         ]);
 
         ProductDetail::create([
-
             'product_id' => $product->id,
             'size_id' => $request->size_id,
             'color_id' => $request->color_id,
