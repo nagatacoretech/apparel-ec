@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalesChartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChildCategoryController;
+use App\Http\Controllers\ParentCategoryController;
 
 Route::get('admin/', function () {
     return view('welcome');
@@ -27,6 +30,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/show/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::post('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/parent_category', [ParentCategoryController::class, 'create'])->name('parent_category.create');
+    Route::post('/parent_category/create', [ParentCategoryController::class, 'store'])->name('parent_category');
+    Route::get('/child_category', [ChildCategoryController::class, 'create'])->name('child_category.create');
+    Route::post('/child_category/create', [ChildCategoryController::class, 'store'])->name('child_category');
 });
 
 require __DIR__.'/adminAuth.php';

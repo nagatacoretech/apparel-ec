@@ -17,13 +17,23 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('商品一覧') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.products.create')" :active="request()->routeIs('admin.products.create')">
+                    <x-nav-link :href="route('admin.products.create')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('商品登録') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.parent_category.create')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('親カテゴリー登録') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin.child_category.create')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('小カテゴリー登録') }}
                     </x-nav-link>
                 </div>
             </div>
