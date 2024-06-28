@@ -32,8 +32,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.child_category.create')" :active="request()->routeIs('admin.dashboard')">
-                        {{ __('小カテゴリー登録') }}
+                    <x-nav-link :href="route('admin.child_category.create')" :active="request()->routeIs('admin.child_category.create')">
+                        {{ __('子カテゴリー登録') }}
                     </x-nav-link>
                 </div>
             </div>

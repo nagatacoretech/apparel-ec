@@ -21,8 +21,6 @@ class ItemController extends Controller
             $child_categories = ChildCategory::all();
             $sizes = Size::all();
             $colors = Color::all();
-
-        // dd($products);
         return view('items.index',compact('products','parent_categories','child_categories'));
     }
 

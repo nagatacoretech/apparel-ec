@@ -1,10 +1,9 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <h2 class="text-xl font-semibold mb-4">注文履歴一覧</h2>
         @foreach ($orders as $order)
         <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-xl font-semibold mb-4">注文履歴一覧</h2>
-            <p class="text-gray-700 mb-4">前回注文日時: {{ $order->created_at->format('Y-m-d H:i:s') }}</p>
-
+            <p class="text-gray-700 mb-4">注文日時: {{ $order->created_at->format('Y-m-d H:i:s') }}</p>
             <ul class="space-y-4">
                 @foreach ($order->orderItems as $item)
                     <li class="border-t pt-4">
