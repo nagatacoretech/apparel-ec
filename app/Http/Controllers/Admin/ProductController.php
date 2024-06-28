@@ -57,7 +57,6 @@ class ProductController extends Controller
             'price' => $request->price,
             'visibility' => $request->visibility,
             'img_path' => $img_path,
-            'stock' => $request->stock,
         ]);
 
         ProductDetail::create([
