@@ -57,11 +57,9 @@
                     @csrf
                     <input type="hidden" name="total_price" value="{{$total_price}}">
                     @forelse($carts as $index => $cart_products)
-                        <input type="hidden" name="order_items[{{$index}}][product_id]" value="{{$cart_products->product_detail_id}}">
                         <input type="hidden" name="order_items[{{$index}}][price]" value="{{$cart_products->price}}">
                         <input type="hidden" name="order_items[{{$index}}][amount]" value="{{$cart_products->amount}}">
                         <input type="hidden" name="order_items[{{$index}}][stock]" value="{{$cart_products->stock}}">
-
                         <input type="hidden" name="stripe_items[{{$index}}][name]" value="{{$cart_products->name}}">
                         <input type="hidden" name="stripe_items[{{$index}}][img]" value="{{$cart_products->img_path}}">
                         <input type="hidden" name="stripe_items[{{$index}}][price]" value="{{$cart_products->price}}">
