@@ -128,7 +128,7 @@ class PurchaseController extends Controller
     }
 
     public function cancel(){
-        echo 'キャンセル';
+        return view('purchase.cancel');
     }
 
 }

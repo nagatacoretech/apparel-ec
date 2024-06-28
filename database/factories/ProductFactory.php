@@ -33,7 +33,7 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->randomElement($name),
             'child_category_id' => fake()->numberBetween(1, 70),
-            'price' => fake()->numberBetween(5000,100000),
+            'price' => fake()->numberBetween(1000,10000),
             'visibility' => fake()->boolean(),
             'img_path' => 'https://picsum.photos/200/300',
         ];

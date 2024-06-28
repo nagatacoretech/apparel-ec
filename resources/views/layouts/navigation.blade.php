@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <div id="searchBox" class="hidden absolute w-[1215px] h-[964px] top-[63px] bg-white p-7">
+            <div id="searchBox" class="hidden absolute  bg-white p-7">
             <form action="{{ route('search') }}" method="GET">
                     <input type="text" name="query" placeholder="検索...">
 
@@ -62,6 +62,12 @@
                     <a href="/carts/index">
                         <button id="icon" class="w-10 mx-7 -mt-2">
                             <img src="{{ asset('/css/img/cart-icon.png')}}">
+                        </button>
+                    </a>
+
+                    <a href="/history">
+                        <button id="icon" class="w-10 mx-7 -mt-2">
+                            <img src="{{ asset('/css/img/purchase-history.png')}}">
                         </button>
                     </a>
                 </div>
