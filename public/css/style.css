@@ -30,21 +30,13 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Product Grid */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
 }
-.product-grid-cart {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
 
-/* Product Card */
 .product-card {
     border: 1px solid #ccc;
     border-radius: 10px;
