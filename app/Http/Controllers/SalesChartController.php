@@ -12,10 +12,18 @@ class SalesChartController extends Controller
      */
 
     public function index(){
+        // $monthlySales = DB::table('orders')
+        //     ->selectRaw('DATE_FORMAT(created_at, "%Y") as Year, DATE_FORMAT(created_at, "%m") as Month, SUM(total_price) as total_sales')
+        //     ->groupByRaw('DATE_FORMAT(created_at, "%Y"), DATE_FORMAT(created_at, "%m")')
+        //     ->orderByRaw('DATE_FORMAT(created_at, "%Y")')
+        //     ->get();
         $monthlySales = DB::table('orders')
-            ->selectRaw('DATE_FORMAT(created_at, "%Y") as Year, DATE_FORMAT(created_at, "%m") as Month, SUM(total_price) as total_sales')
-            ->groupByRaw('DATE_FORMAT(created_at, "%Y"), DATE_FORMAT(created_at, "%m")')
-            ->orderByRaw('DATE_FORMAT(created_at, "%Y")')
+            ->selectRaw('YEAR(created_at) as Year, MONTH(created_at) as Month, COALESCE(SUM(total_price), 0) as total_sales')
+            ->rightJoin(DB::raw('(SELECT 1 as m UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12) as months'), function ($join) {
+                $join->on(DB::raw('MONTH(created_at)'), '=', 'months.m');
+            })
+            ->groupByRaw('YEAR(created_at), MONTH(created_at)')
+            ->orderByRaw('YEAR(created_at), MONTH(created_at)')
             ->get();
 
         $yearlySales = DB::table('orders')
@@ -34,6 +42,7 @@ class SalesChartController extends Controller
         $yearly_members = DB::table('users')
             ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as year,count(*) as members')
             ->groupByRaw('DATE_FORMAT(created_at, "%Y-%m")')
+            ->orderByRaw('DATE_FORMAT(created_at, "%Y-%m")')
             ->get();
         $labels = $yearly_members->pluck('year')->toArray();
         $data = $yearly_members->pluck('members')->toArray();
