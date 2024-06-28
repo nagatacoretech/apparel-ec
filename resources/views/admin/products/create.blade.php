@@ -58,7 +58,6 @@
                     @endforeach
                 </select>
             </div>
-
             <div class="create-form-group">
                 <label for="color_id">カラー (Color)</label>
                 <select class="form-control" id="color_id" name="color_id" required>

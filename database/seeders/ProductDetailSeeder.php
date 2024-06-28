@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ProductDetail;
 use Database\Factories\ProductDetailFactory;
+use Illuminate\Support\Facades\DB;
 
 class ProductDetailSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class ProductDetailSeeder extends Seeder
      */
     public function run(): void
     {
-        ProductDetail::factory(50)->create();
+
+        ProductDetail::factory(4000)->create();
     }
 }

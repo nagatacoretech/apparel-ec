@@ -10,17 +10,11 @@
                     </a>
                 </div>
             </div>
-                <button id="searchIcon" class="w-16">
-                    <img src="{{ asset('/css/img/search-icon.png')}}">
-                </button>
 
             <div id="searchBox" class="hidden absolute w-[1215px] h-[964px] top-[63px] bg-white p-7">
             <form action="{{ route('search') }}" method="GET">
-                {{-- キーワード検索（商品名検索）はなるべく下で検索をかけられるようにする --}}
-                {{-- カテゴリーから商品をたどれるようにする --}}
                     <input type="text" name="query" placeholder="検索...">
 
-                    {{-- ここにカテゴリー検索追加 --}}
                     <div class="list1">
                         <div class="list1-title">woman</div>
                         <select name="woman_category">
@@ -57,8 +51,20 @@
                 </form>
             </div>
 
+
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 ">
+                <div class="mx-10">
+                    <button id="searchIcon" class="w-11 mx-7 mt-2">
+                        <img src="{{ asset('/css/img/search-icon.png')}}">
+                    </button>
+
+                    <a href="/carts/index">
+                        <button id="icon" class="w-10 mx-7 -mt-2">
+                            <img src="{{ asset('/css/img/cart-icon.png')}}">
+                        </button>
+                    </a>
+                </div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         @auth

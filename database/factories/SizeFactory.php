@@ -17,9 +17,9 @@ class SizeFactory extends Factory
      */
     public function definition(): array
     {
-        $sizes = ['XL','S','M','L','XL','2XL','3XL','4XL'];
+        // $sizes = ['XL','S','M','L','XL','2XL','3XL','4XL'];
         return [
-            'size' => fake()->randomElement($sizes),
+            // 'size' => fake()->randomElement($sizes),
         ];
     }
 }
