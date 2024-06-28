@@ -22,7 +22,7 @@
                             <button class="nav-link" id="yearly-tab" data-bs-toggle="tab" data-bs-target="#yearly" type="button" role="tab" aria-controls="yearly" aria-selected="false">年別売上</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="user-tab" data-bs-toggle="tab" data-bs-target="#user" type="button" role="tab" aria-controls="user" aria-selected="false">会員数推移</button>
+                            <button class="nav-link" id="user-tab" data-bs-toggle="tab" data-bs-target="#user" type="button" role="tab" aria-controls="user" aria-selected="false">会員数増数</button>
                         </li>
                     </ul>
                     {{-- タブにリンクされてるグラフの描写のやつ --}}

@@ -31,7 +31,7 @@ class CustomerMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        return new Envelope( subject: '購入完了のお知らせ',);
+        return new Envelope( subject: 'ご購入ありがとうございました！',);
     }
 
 public function content(): Content
